@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -21,3 +22,7 @@ Route::get('/blog/{id}', [BlogController::class, 'viewSingleBlog'])->middleware(
 Route::post('/blog/add', [BlogController::class, 'addBlog'])->middleware('auth:sanctum');
 Route::patch('/blog/update/{id}',[BlogController::class,'updateBlog'])->middleware('auth:sanctum');
 Route::delete('/blog/delete/{id}',[BlogController::class,'deleteBlog'])->middleware('auth:sanctum');
+
+//Comment
+Route::get('/comment/{id}', [CommentController::class, 'comment'])->middleware('auth:sanctum');
+Route::post('/comment/add', [CommentController::class, 'addComment'])->middleware('auth:sanctum');
