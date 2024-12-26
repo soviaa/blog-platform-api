@@ -14,7 +14,8 @@ Route::get('/user', function (Request $request) {
 //User
 Route::post('/user/register', [UserController::class, 'register']);
 Route::post('/user/login',[UserController::class, 'login']);
-
+Route::get('/user/profile',[UserController::class, 'viewProfile'])->middleware('auth:sanctum');
+Route::patch('/user/profile',[UserController::class, 'updateProfile'])->middleware('auth:sanctum');
 
 //Blog
 Route::get('/blog',[BlogCOntroller::class, 'viewBlog'])->middleware('auth:sanctum');

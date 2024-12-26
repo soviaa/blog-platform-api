@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserController extends Controller
@@ -57,6 +58,42 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'Validation failed',
                 'exception' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function viewProfile(){
+        try{
+            $user = User::where('id', Auth::user()->id)->first();
+            return response()->json([
+                'user' => $user,
+                'message' => 'User retrieved successfully',
+            ]);
+        }catch(Exception $e){
+            return response->json([
+                'message' => 'Failed to retrieve user',
+                'error' => $e->getMessage(),
+            ], 400);
+        }
+    }
+    public function updateProfile(Request $request){
+        try{
+            $user = User::where('id', Auth::user()->id)->first();
+            $request->validate([
+                'username' => 'nullable|string',
+                'email' => 'nullable|email|unique:users,email',
+            ]);
+            $user->username = $request->username ?? $user->username;
+            $user->email = $request->email ?? $user->email;
+            $user->save();
+            return response()->json([
+                'user' => $user,
+                'message' => 'Profile updated successfully',
+            ]);
+        }catch(Exception $e){
+            return response()->json([
+                'message' => 'Failed to update profile',
+                'error' => $e->getMessage(),
             ], 400);
         }
     }
