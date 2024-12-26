@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ImageController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -26,3 +27,6 @@ Route::delete('/blog/delete/{id}',[BlogController::class,'deleteBlog'])->middlew
 //Comment
 Route::get('/comment/{id}', [CommentController::class, 'comment'])->middleware('auth:sanctum');
 Route::post('/comment/add', [CommentController::class, 'addComment'])->middleware('auth:sanctum');
+
+//Image
+Route::post('/image/add/{id}',[ImageController::class, 'storeImage'])->middleware('auth:sanctum');
