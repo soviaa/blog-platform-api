@@ -28,6 +28,8 @@ Route::delete('/blog/delete/{id}',[BlogController::class,'deleteBlog'])->middlew
 //Comment
 Route::get('/comment/{id}', [CommentController::class, 'comment'])->middleware('auth:sanctum');
 Route::post('/comment/add', [CommentController::class, 'addComment'])->middleware('auth:sanctum');
+Route::delete('/comment/delete/{id}', [CommentController::class, 'deleteComment'])->middleware('auth:sanctum');
+Route::patch('/comment/update/{id}', [CommentController::class, 'updateComment'])->middleware('auth:sanctum');
 
 //Image
 Route::post('/image/add/{id}',[ImageController::class, 'storeImage'])->middleware('auth:sanctum');
